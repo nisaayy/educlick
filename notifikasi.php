@@ -63,11 +63,36 @@ foreach ($informasi_list as $info) {
             background: linear-gradient(135deg, #d9ebd0 0%, #c1dec8 100%);
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px; /* Memberi ruang untuk navbar yang fixed */
         }
         
         .navbar {
             background: linear-gradient(135deg, #f68c2e 0%, #ff9d4d 100%);
             box-shadow: 0 4px 12px rgba(246, 140, 46, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+        }
+        
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 8px;
+            padding: 8px 16px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-3px);
+            color: white;
         }
         
         .info-section {
@@ -167,22 +192,32 @@ foreach ($informasi_list as $info) {
             border-radius: 15px 15px 0 0 !important;
             border: none;
         }
+        
+        .user-info {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: inline-flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <span class="navbar-brand">
-                <i class="fas fa-bell me-2"></i>Notifikasi & Informasi
-            </span>
-            <div class="d-flex">
-                <span class="navbar-text me-3">
-                    <i class="fas fa-user-graduate me-1"></i><?= htmlspecialchars($siswa_nama) ?>
-                </span>
-                <a href="dashboard_siswa.php" class="btn btn-light btn-sm">
-                    <i class="fas fa-arrow-left me-1"></i>Kembali
+            <div class="d-flex align-items-center">
+                <a href="dashboard_siswa.php" class="back-btn me-3">
+                    <i class="fas fa-arrow-left me-2"></i>Kembali
                 </a>
+                <span class="navbar-brand mb-0 h1">
+                    <i class="fas fa-bell me-2"></i>Notifikasi & Informasi
+                </span>
+            </div>
+            <div class="d-flex align-items-center">
+                <span class="user-info me-3">
+                    <i class="fas fa-user-graduate me-2"></i><?= htmlspecialchars($siswa_nama) ?>
+                </span>
             </div>
         </div>
     </nav>
