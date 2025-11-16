@@ -55,310 +55,396 @@ foreach ($informasi_list as $info) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notifikasi - SDIT</title>
+    <title>Informasi - SDIT</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #E4DDD4;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
         }
-        .navbar {
-            background: linear-gradient(135deg, #2196F3 0%, #21CBF3 100%);
-            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+
+        /* Header Style */
+        .chat-header {
+            background: #075E54;
+            color: white;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
         }
-        .notification-card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
-            border-left: 4px solid transparent;
+
+        .chat-header .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
         }
-        .notification-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+
+        .chat-header .info {
+            flex: 1;
         }
-        .notification-new {
-            border-left: 4px solid #2196F3;
-            background: #f0f8ff;
-            animation: pulse 2s infinite;
+
+        .chat-header .info h6 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
         }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(33, 150, 243, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
+
+        .chat-header .info small {
+            font-size: 12px;
+            opacity: 0.8;
         }
-        .notification-badge {
-            background: linear-gradient(135deg, #2196F3 0%, #21CBF3 100%);
+
+        .chat-header .back-btn {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            cursor: pointer;
         }
-        .badge-umum { background: #4d6651; }
-        .badge-siswa { background: #2196F3; }
-        .badge-sistem { background: #9c27b0; }
-        .badge-pengingat { background: #ff5722; }
-        .notification-time {
-            font-size: 0.85rem;
-            color: #6c757d;
+
+        /* Filter Tabs */
+        .filter-tabs {
+            background: #075E54;
+            padding: 0 16px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
+
+        .filter-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-tab {
+            padding: 10px 20px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            color: white;
+            border-bottom-color: white;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+            padding: 12px 8px;
+            background: #E4DDD4;
+        }
+
+        .chat-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-container::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 3px;
+        }
+
+        /* Message Bubble */
+        .message-bubble {
+            max-width: 85%;
+            margin-bottom: 8px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bubble-content {
+            background: white;
+            border-radius: 8px;
+            padding: 8px 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .bubble-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+
+        .bubble-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #075E54;
+            flex: 1;
+            margin: 0;
+        }
+
+        .bubble-badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .badge-new {
+            background: #FF3B30;
+            color: white;
+        }
+
+        .badge-umum {
+            background: #34C759;
+            color: white;
+        }
+
+        .badge-siswa {
+            background: #007AFF;
+            color: white;
+        }
+
+        .bubble-text {
+            font-size: 14px;
+            color: #303030;
+            line-height: 1.5;
+            margin: 8px 0;
+            word-wrap: break-word;
+        }
+
+        .bubble-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px solid #F0F0F0;
+        }
+
+        .bubble-date {
+            font-size: 11px;
+            color: #8696A0;
+        }
+
+        .bubble-time {
+            font-size: 11px;
+            color: #8696A0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Date Divider */
+        .date-divider {
+            text-align: center;
+            margin: 16px 0;
+        }
+
+        .date-divider span {
+            background: rgba(255,255,255,0.9);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #667781;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
-            color: #6b8e70;
+            color: #667781;
         }
+
         .empty-state i {
             font-size: 64px;
-            margin-bottom: 20px;
-            opacity: 0.5;
+            margin-bottom: 16px;
+            opacity: 0.3;
         }
-        .card-header {
-            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
-            color: white;
-            border-radius: 15px 15px 0 0 !important;
-            border: none;
+
+        .empty-state h5 {
+            margin-bottom: 8px;
+            color: #667781;
         }
-        .info-section {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .filter-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        .filter-btn {
-            padding: 8px 16px;
-            border: 1px solid #dee2e6;
-            border-radius: 20px;
-            background: white;
-            color: #6c757d;
-            text-decoration: none;
+
+        .empty-state p {
             font-size: 14px;
-            transition: all 0.3s ease;
+            opacity: 0.7;
         }
-        .filter-btn:hover, .filter-btn.active {
-            background: #2196F3;
-            color: white;
-            border-color: #2196F3;
+
+        /* Pulse animation for new messages */
+        .message-bubble.new-message .bubble-content {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(7, 94, 84, 0.3); }
+            70% { box-shadow: 0 0 0 8px rgba(7, 94, 84, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(7, 94, 84, 0); }
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: rgba(7, 94, 84, 0.1);
+            padding: 8px 16px;
+            font-size: 12px;
+            color: #075E54;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <span class="navbar-brand">
-                <i class="fas fa-bell me-2"></i>Notifikasi & Informasi
-            </span>
-            <div class="d-flex">
-                <span class="navbar-text me-3">
-                    <i class="fas fa-user-graduate me-1"></i><?= htmlspecialchars($siswa_nama) ?>
-                </span>
-                <a href="dashboard_siswa.php" class="btn btn-light btn-sm">
-                    <i class="fas fa-arrow-left me-1"></i>Kembali
-                </a>
-            </div>
+    <!-- Header -->
+    <div class="chat-header">
+        <a href="dashboard_siswa.php" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="avatar">
+            <i class="fas fa-bell"></i>
         </div>
-    </nav>
-
-    <div class="container mt-4">
-        <!-- Header Info -->
-        <div class="info-section">
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <h5 class="mb-1"><i class="fas fa-info-circle me-2"></i>Informasi Sistem</h5>
-                    <p class="mb-0 text-muted">Semua informasi dan pengumuman penting akan muncul di sini</p>
-                </div>
-                <div class="col-md-4 text-end">
-                    <div class="d-flex justify-content-end gap-3">
-                        <div class="text-center">
-                            <div class="fw-bold text-primary"><?= count($informasi_list) ?></div>
-                            <small class="text-muted">Total Info</small>
-                        </div>
-                        <?php if ($informasi_baru > 0): ?>
-                        <div class="text-center">
-                            <div class="fw-bold text-success"><?= $informasi_baru ?></div>
-                            <small class="text-muted">Info Baru</small>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
+        <div class="info">
+            <h6>Informasi</h6>
+            <small><?= count($informasi_list) ?> pesan<?= $informasi_baru > 0 ? ", $informasi_baru baru" : "" ?></small>
         </div>
-
-        <!-- Filter Buttons -->
-        <div class="filter-buttons">
-            <a href="notifikasi.php" class="filter-btn active">Semua</a>
-            <a href="notifikasi.php?filter=baru" class="filter-btn">
-                <i class="fas fa-star me-1"></i>Baru
-            </a>
-            <a href="notifikasi.php?filter=umum" class="filter-btn">
-                <i class="fas fa-users me-1"></i>Umum
-            </a>
-            <a href="notifikasi.php?filter=siswa" class="filter-btn">
-                <i class="fas fa-user-graduate me-1"></i>Siswa
-            </a>
+        <div style="font-size: 20px;">
+            <i class="fas fa-ellipsis-v"></i>
         </div>
+    </div>
 
-        <!-- Daftar Notifikasi -->
-        <div class="row">
-            <div class="col-12">
-                <?php if (count($informasi_list) > 0): ?>
-                    <?php 
-                    $filter = $_GET['filter'] ?? '';
-                    foreach ($informasi_list as $info): 
-                        $is_baru = (strtotime($info['tanggal']) > (time() - 7*24*60*60));
-                        $badge_class = $info['ditujukan'] == 'umum' ? 'badge-umum' : 'badge-siswa';
-                        $icon = $info['ditujukan'] == 'umum' ? 'fas fa-users' : 'fas fa-user-graduate';
-                        
-                        // Apply filter
-                        if ($filter === 'baru' && !$is_baru) continue;
-                        if ($filter === 'umum' && $info['ditujukan'] !== 'umum') continue;
-                        if ($filter === 'siswa' && $info['ditujukan'] !== 'siswa') continue;
-                    ?>
-                        <div class="card notification-card <?= $is_baru ? 'notification-new' : '' ?>">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <div class="d-flex align-items-center flex-wrap">
-                                        <h5 class="card-title mb-0 me-2"><?= htmlspecialchars($info['judul']) ?></h5>
-                                        <?php if ($is_baru): ?>
-                                            <span class="badge bg-danger me-2">
-                                                <i class="fas fa-circle me-1"></i>BARU
-                                            </span>
-                                        <?php endif; ?>
-                                        <span class="badge <?= $badge_class ?> me-2">
-                                            <i class="<?= $icon ?> me-1"></i>
-                                            <?= $info['ditujukan'] == 'umum' ? 'Untuk Semua' : 'Khusus Siswa' ?>
-                                        </span>
-                                        <span class="badge bg-light text-dark">
-                                            <i class="fas fa-calendar me-1"></i>
-                                            <?= date('d M Y', strtotime($info['tanggal'])) ?>
-                                        </span>
-                                    </div>
-                                    <small class="notification-time">
-                                        <i class="fas fa-clock me-1"></i>
-                                        <?= date('H:i', strtotime($info['tanggal'])) ?>
-                                    </small>
-                                </div>
-                                
-                                <p class="card-text"><?= nl2br(htmlspecialchars($info['isi'])) ?></p>
-                                
-                                <div class="mt-3 d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">
-                                        <i class="fas fa-calendar-alt me-1"></i>
-                                        Diterbitkan: <?= date('l, d F Y', strtotime($info['tanggal'])) ?>
-                                    </small>
-                                    <?php if ($is_baru): ?>
-                                        <span class="badge bg-warning text-dark">
-                                            <i class="fas fa-exclamation-circle me-1"></i>Baru
-                                        </span>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                    
-                    <?php 
-                    // Check if filter results in empty
-                    $visible_count = 0;
-                    foreach ($informasi_list as $info) {
-                        $is_baru = (strtotime($info['tanggal']) > (time() - 7*24*60*60));
-                        if ($filter === 'baru' && !$is_baru) continue;
-                        if ($filter === 'umum' && $info['ditujukan'] !== 'umum') continue;
-                        if ($filter === 'siswa' && $info['ditujukan'] !== 'siswa') continue;
-                        $visible_count++;
-                    }
-                    
-                    if ($visible_count === 0 && count($informasi_list) > 0): 
-                    ?>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="empty-state">
-                                    <i class="fas fa-search"></i>
-                                    <h3>Tidak Ditemukan</h3>
-                                    <p class="mb-0">Tidak ada informasi yang sesuai dengan filter yang dipilih.</p>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    
-                <?php else: ?>
-                    <!-- Empty State -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="empty-state">
-                                <i class="fas fa-bell-slash"></i>
-                                <h3>Belum Ada Informasi</h3>
-                                <p class="mb-0">Saat ini belum ada informasi atau pengumuman yang tersedia.</p>
-                                <small class="text-muted">Informasi baru akan muncul di sini ketika ada pengumuman penting</small>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <a href="notifikasi.php" class="filter-tab <?= !isset($_GET['filter']) ? 'active' : '' ?>">Semua</a>
+        <a href="notifikasi.php?filter=baru" class="filter-tab <?= isset($_GET['filter']) && $_GET['filter'] == 'baru' ? 'active' : '' ?>">Baru</a>
+        <a href="notifikasi.php?filter=umum" class="filter-tab <?= isset($_GET['filter']) && $_GET['filter'] == 'umum' ? 'active' : '' ?>">Umum</a>
+        <a href="notifikasi.php?filter=siswa" class="filter-tab <?= isset($_GET['filter']) && $_GET['filter'] == 'siswa' ? 'active' : '' ?>">Siswa</a>
+    </div>
 
-        <!-- Footer Info -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <div class="card bg-light">
-                    <div class="card-body text-center py-3">
-                        <small class="text-muted">
-                            <i class="fas fa-info-circle me-1"></i>
-                            Informasi terbaru akan ditandai dengan warna biru. Total <?= count($informasi_list) ?> informasi tersedia.
-                            <?php if ($informasi_baru > 0): ?>
-                                <span class="text-success">
-                                    <i class="fas fa-star me-1"></i><?= $informasi_baru ?> informasi baru dalam 7 hari terakhir.
-                                </span>
+    <!-- Stats Bar -->
+    <?php if ($informasi_baru > 0): ?>
+    <div class="stats-bar">
+        <i class="fas fa-info-circle"></i> <?= $informasi_baru ?> informasi baru dalam 7 hari terakhir
+    </div>
+    <?php endif; ?>
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <?php if (count($informasi_list) > 0): ?>
+            <?php 
+            $filter = $_GET['filter'] ?? '';
+            $current_date = '';
+            $visible_count = 0;
+            
+            foreach ($informasi_list as $info): 
+                $is_baru = (strtotime($info['tanggal']) > (time() - 7*24*60*60));
+                $badge_class = $info['ditujukan'] == 'umum' ? 'badge-umum' : 'badge-siswa';
+                $badge_text = $info['ditujukan'] == 'umum' ? 'Umum' : 'Siswa';
+                
+                // Apply filter
+                if ($filter === 'baru' && !$is_baru) continue;
+                if ($filter === 'umum' && $info['ditujukan'] !== 'umum') continue;
+                if ($filter === 'siswa' && $info['ditujukan'] !== 'siswa') continue;
+                
+                $visible_count++;
+                
+                // Date divider
+                $message_date = date('d M Y', strtotime($info['tanggal']));
+                if ($current_date !== $message_date) {
+                    $current_date = $message_date;
+                    echo '<div class="date-divider"><span>' . $message_date . '</span></div>';
+                }
+            ?>
+                <div class="message-bubble <?= $is_baru ? 'new-message' : '' ?>">
+                    <div class="bubble-content">
+                        <div class="bubble-header">
+                            <h6 class="bubble-title"><?= htmlspecialchars($info['judul']) ?></h6>
+                            <?php if ($is_baru): ?>
+                                <span class="bubble-badge badge-new">BARU</span>
                             <?php endif; ?>
-                        </small>
+                            <span class="bubble-badge <?= $badge_class ?>"><?= $badge_text ?></span>
+                        </div>
+                        
+                        <div class="bubble-text">
+                            <?= nl2br(htmlspecialchars($info['isi'])) ?>
+                        </div>
+                        
+                        <div class="bubble-footer">
+                            <span class="bubble-date">
+                                <i class="fas fa-calendar" style="font-size: 10px;"></i>
+                                <?= date('d/m/Y', strtotime($info['tanggal'])) ?>
+                            </span>
+                            <span class="bubble-time">
+                                <?= date('H:i', strtotime($info['tanggal'])) ?>
+                                <i class="fas fa-check-double" style="color: #53BDEB;"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
+            <?php endforeach; ?>
+            
+            <?php if ($visible_count === 0): ?>
+                <div class="empty-state">
+                    <i class="fas fa-search"></i>
+                    <h5>Tidak Ditemukan</h5>
+                    <p>Tidak ada informasi yang sesuai dengan filter yang dipilih.</p>
+                </div>
+            <?php endif; ?>
+            
+        <?php else: ?>
+            <!-- Empty State -->
+            <div class="empty-state">
+                <i class="fas fa-bell-slash"></i>
+                <h5>Belum Ada Informasi</h5>
+                <p>Saat ini belum ada informasi atau pengumuman yang tersedia.</p>
+                <small style="display: block; margin-top: 8px;">Informasi baru akan muncul di sini ketika ada pengumuman penting</small>
             </div>
-        </div>
+        <?php endif; ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Auto scroll to new notifications
+        // Auto scroll to bottom (latest messages)
         document.addEventListener('DOMContentLoaded', function() {
-            const newNotifications = document.querySelectorAll('.notification-new');
-            if (newNotifications.length > 0) {
-                newNotifications[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // Add click event to mark as read (visual only)
-                newNotifications.forEach(notification => {
-                    notification.addEventListener('click', function() {
-                        this.classList.remove('notification-new');
-                        this.style.borderLeftColor = '#6c757d';
-                    });
-                });
+            const container = document.querySelector('.chat-container');
+            if (container) {
+                container.scrollTop = container.scrollHeight;
             }
             
-            // Update active filter button
-            const urlParams = new URLSearchParams(window.location.search);
-            const filter = urlParams.get('filter');
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            
-            filterButtons.forEach(btn => {
-                btn.classList.remove('active');
-                const btnFilter = btn.getAttribute('href').includes('filter=') 
-                    ? btn.getAttribute('href').split('filter=')[1]
-                    : '';
-                if ((!filter && btn.getAttribute('href') === 'notifikasi.php') || 
-                    (filter && btnFilter === filter)) {
-                    btn.classList.add('active');
-                }
-            });
+            // Smooth scroll to new messages
+            const newMessages = document.querySelectorAll('.new-message');
+            if (newMessages.length > 0) {
+                setTimeout(() => {
+                    newMessages[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
         });
 
-        // Smooth animation for notification cards
-        document.querySelectorAll('.notification-card').forEach(card => {
-            card.addEventListener('click', function() {
+        // Click animation
+        document.querySelectorAll('.message-bubble').forEach(bubble => {
+            bubble.addEventListener('click', function() {
                 this.style.transform = 'scale(0.98)';
                 setTimeout(() => {
                     this.style.transform = '';
