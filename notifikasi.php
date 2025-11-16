@@ -66,115 +66,330 @@ foreach ($informasi_list as $info) {
         }
         
         body {
-            background: #E4DDD4;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            height: 100vh;
-            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
         }
 
-        /* Header Style */
-        .chat-header {
-            background: #075E54;
+        /* Top Header */
+        .top-header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 20px;
             color: white;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
         }
 
-        .chat-header .avatar {
+        .top-header .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
             width: 40px;
             height: 40px;
-            border-radius: 50%;
-            background: #25D366;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .chat-header .info {
-            flex: 1;
-        }
-
-        .chat-header .info h6 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        .chat-header .info small {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-
-        .chat-header .back-btn {
             color: white;
-            font-size: 24px;
             text-decoration: none;
-            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        /* Filter Tabs */
-        .filter-tabs {
-            background: #075E54;
-            padding: 0 16px;
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .header-info h4 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .header-info p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .header-stats {
             display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            gap: 20px;
         }
 
-        .filter-tabs::-webkit-scrollbar {
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Filter Pills */
+        .filter-container {
+            max-width: 800px;
+            margin: -20px auto 0;
+            padding: 0 20px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .filter-pills {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-pills::-webkit-scrollbar {
             display: none;
         }
 
-        .filter-tab {
+        .filter-pill {
             padding: 10px 20px;
-            color: rgba(255,255,255,0.7);
+            border-radius: 25px;
+            background: #f5f5f5;
+            color: #666;
             text-decoration: none;
             font-size: 14px;
+            font-weight: 500;
             white-space: nowrap;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            border: 2px solid transparent;
         }
 
-        .filter-tab:hover,
-        .filter-tab.active {
+        .filter-pill:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .filter-pill.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-bottom-color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
-        /* Chat Container */
-        .chat-container {
-            height: calc(100vh - 120px);
-            overflow-y: auto;
-            padding: 12px 8px;
-            background: #E4DDD4;
+        /* Main Content */
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
         }
 
-        .chat-container::-webkit-scrollbar {
-            width: 6px;
+        /* Info Card */
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .chat-container::-webkit-scrollbar-thumb {
-            background: rgba(0,0,0,0.2);
-            border-radius: 3px;
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
-        /* Message Bubble */
-        .message-bubble {
-            max-width: 85%;
-            margin-bottom: 8px;
-            animation: slideIn 0.3s ease;
+        .info-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
         }
 
-        @keyframes slideIn {
+        .info-card.new::before {
+            width: 8px;
+            background: linear-gradient(180deg, #f093fb 0%, #f5576c 100%);
+            animation: pulse-width 2s infinite;
+        }
+
+        @keyframes pulse-width {
+            0%, 100% { width: 8px; opacity: 1; }
+            50% { width: 12px; opacity: 0.8; }
+        }
+
+        .info-card.new {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+        }
+
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+            flex: 1;
+        }
+
+        .card-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge-custom {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            animation: badge-pulse 2s infinite;
+        }
+
+        @keyframes badge-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .badge-umum {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #006644;
+        }
+
+        .badge-siswa {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #0066cc;
+        }
+
+        .card-content {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.7;
+            margin: 15px 0;
+        }
+
+        .card-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .card-date {
+            font-size: 13px;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-time {
+            font-size: 13px;
+            color: #999;
+            font-weight: 500;
+        }
+
+        /* Date Separator */
+        .date-separator {
+            text-align: center;
+            margin: 30px 0 20px;
+            position: relative;
+        }
+
+        .date-separator::before,
+        .date-separator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3));
+        }
+
+        .date-separator::before {
+            left: 0;
+        }
+
+        .date-separator::after {
+            right: 0;
+            background: linear-gradient(to left, transparent, rgba(255,255,255,0.3));
+        }
+
+        .date-separator span {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .empty-state i {
+            font-size: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h5 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* Smooth Animations */
+        .info-card {
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -182,176 +397,71 @@ foreach ($informasi_list as $info) {
             }
         }
 
-        .bubble-content {
-            background: white;
-            border-radius: 8px;
-            padding: 8px 12px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            position: relative;
-        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-stats {
+                flex-direction: column;
+                gap: 10px;
+            }
 
-        .bubble-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
-            flex-wrap: wrap;
-        }
+            .top-header {
+                padding: 15px;
+            }
 
-        .bubble-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #075E54;
-            flex: 1;
-            margin: 0;
-        }
-
-        .bubble-badge {
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-weight: 600;
-        }
-
-        .badge-new {
-            background: #FF3B30;
-            color: white;
-        }
-
-        .badge-umum {
-            background: #34C759;
-            color: white;
-        }
-
-        .badge-siswa {
-            background: #007AFF;
-            color: white;
-        }
-
-        .bubble-text {
-            font-size: 14px;
-            color: #303030;
-            line-height: 1.5;
-            margin: 8px 0;
-            word-wrap: break-word;
-        }
-
-        .bubble-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 6px;
-            padding-top: 6px;
-            border-top: 1px solid #F0F0F0;
-        }
-
-        .bubble-date {
-            font-size: 11px;
-            color: #8696A0;
-        }
-
-        .bubble-time {
-            font-size: 11px;
-            color: #8696A0;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* Date Divider */
-        .date-divider {
-            text-align: center;
-            margin: 16px 0;
-        }
-
-        .date-divider span {
-            background: rgba(255,255,255,0.9);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            color: #667781;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #667781;
-        }
-
-        .empty-state i {
-            font-size: 64px;
-            margin-bottom: 16px;
-            opacity: 0.3;
-        }
-
-        .empty-state h5 {
-            margin-bottom: 8px;
-            color: #667781;
-        }
-
-        .empty-state p {
-            font-size: 14px;
-            opacity: 0.7;
-        }
-
-        /* Pulse animation for new messages */
-        .message-bubble.new-message .bubble-content {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(7, 94, 84, 0.3); }
-            70% { box-shadow: 0 0 0 8px rgba(7, 94, 84, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(7, 94, 84, 0); }
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            background: rgba(7, 94, 84, 0.1);
-            padding: 8px 16px;
-            font-size: 12px;
-            color: #075E54;
-            text-align: center;
+            .filter-container {
+                margin-top: -15px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <div class="chat-header">
-        <a href="dashboard_siswa.php" class="back-btn">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-        <div class="avatar">
-            <i class="fas fa-bell"></i>
-        </div>
-        <div class="info">
-            <h6>Informasi</h6>
-            <small><?= count($informasi_list) ?> pesan<?= $informasi_baru > 0 ? ", $informasi_baru baru" : "" ?></small>
-        </div>
-        <div style="font-size: 20px;">
-            <i class="fas fa-ellipsis-v"></i>
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="header-content">
+            <a href="dashboard_siswa.php" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            
+            <div class="header-info">
+                <h4><i class="fas fa-bell me-2"></i>Informasi</h4>
+                <p><?= htmlspecialchars($siswa_nama) ?> • <?= htmlspecialchars($nama_kelas) ?></p>
+            </div>
+
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-number"><?= count($informasi_list) ?></span>
+                    <span class="stat-label">Total</span>
+                </div>
+                <?php if ($informasi_baru > 0): ?>
+                <div class="stat-item">
+                    <span class="stat-number"><?= $informasi_baru ?></span>
+                    <span class="stat-label">Baru</span>
+                </div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 
-    <!-- Filter Tabs -->
-    <div class="filter-tabs">
-        <a href="notifikasi.php" class="filter-tab <?= !isset($_GET['filter']) ? 'active' : '' ?>">Semua</a>
-        <a href="notifikasi.php?filter=baru" class="filter-tab <?= isset($_GET['filter']) && $_GET['filter'] == 'baru' ? 'active' : '' ?>">Baru</a>
-        <a href="notifikasi.php?filter=umum" class="filter-tab <?= isset($_GET['filter']) && $_GET['filter'] == 'umum' ? 'active' : '' ?>">Umum</a>
-        <a href="notifikasi.php?filter=siswa" class="filter-tab <?= isset($_GET['filter']) && $_GET['filter'] == 'siswa' ? 'active' : '' ?>">Siswa</a>
+    <!-- Filter Pills -->
+    <div class="filter-container">
+        <div class="filter-pills">
+            <a href="notifikasi.php" class="filter-pill <?= !isset($_GET['filter']) ? 'active' : '' ?>">
+                <i class="fas fa-th-large me-1"></i> Semua
+            </a>
+            <a href="notifikasi.php?filter=baru" class="filter-pill <?= isset($_GET['filter']) && $_GET['filter'] == 'baru' ? 'active' : '' ?>">
+                <i class="fas fa-star me-1"></i> Baru
+            </a>
+            <a href="notifikasi.php?filter=umum" class="filter-pill <?= isset($_GET['filter']) && $_GET['filter'] == 'umum' ? 'active' : '' ?>">
+                <i class="fas fa-users me-1"></i> Umum
+            </a>
+            <a href="notifikasi.php?filter=siswa" class="filter-pill <?= isset($_GET['filter']) && $_GET['filter'] == 'siswa' ? 'active' : '' ?>">
+                <i class="fas fa-user-graduate me-1"></i> Siswa
+            </a>
+        </div>
     </div>
 
-    <!-- Stats Bar -->
-    <?php if ($informasi_baru > 0): ?>
-    <div class="stats-bar">
-        <i class="fas fa-info-circle"></i> <?= $informasi_baru ?> informasi baru dalam 7 hari terakhir
-    </div>
-    <?php endif; ?>
-
-    <!-- Chat Container -->
-    <div class="chat-container">
+    <!-- Main Content -->
+    <div class="content-container">
         <?php if (count($informasi_list) > 0): ?>
             <?php 
             $filter = $_GET['filter'] ?? '';
@@ -361,7 +471,7 @@ foreach ($informasi_list as $info) {
             foreach ($informasi_list as $info): 
                 $is_baru = (strtotime($info['tanggal']) > (time() - 7*24*60*60));
                 $badge_class = $info['ditujukan'] == 'umum' ? 'badge-umum' : 'badge-siswa';
-                $badge_text = $info['ditujukan'] == 'umum' ? 'Umum' : 'Siswa';
+                $badge_text = $info['ditujukan'] == 'umum' ? 'Untuk Semua' : 'Khusus Siswa';
                 
                 // Apply filter
                 if ($filter === 'baru' && !$is_baru) continue;
@@ -370,36 +480,44 @@ foreach ($informasi_list as $info) {
                 
                 $visible_count++;
                 
-                // Date divider
-                $message_date = date('d M Y', strtotime($info['tanggal']));
+                // Date separator
+                $message_date = date('d F Y', strtotime($info['tanggal']));
                 if ($current_date !== $message_date) {
                     $current_date = $message_date;
-                    echo '<div class="date-divider"><span>' . $message_date . '</span></div>';
+                    if ($visible_count > 1) {
+                        echo '<div class="date-separator"><span>' . $message_date . '</span></div>';
+                    }
                 }
             ?>
-                <div class="message-bubble <?= $is_baru ? 'new-message' : '' ?>">
-                    <div class="bubble-content">
-                        <div class="bubble-header">
-                            <h6 class="bubble-title"><?= htmlspecialchars($info['judul']) ?></h6>
-                            <?php if ($is_baru): ?>
-                                <span class="bubble-badge badge-new">BARU</span>
-                            <?php endif; ?>
-                            <span class="bubble-badge <?= $badge_class ?>"><?= $badge_text ?></span>
-                        </div>
-                        
-                        <div class="bubble-text">
-                            <?= nl2br(htmlspecialchars($info['isi'])) ?>
-                        </div>
-                        
-                        <div class="bubble-footer">
-                            <span class="bubble-date">
-                                <i class="fas fa-calendar" style="font-size: 10px;"></i>
-                                <?= date('d/m/Y', strtotime($info['tanggal'])) ?>
+                <div class="info-card <?= $is_baru ? 'new' : '' ?>">
+                    <div class="card-header-row">
+                        <h5 class="card-title"><?= htmlspecialchars($info['judul']) ?></h5>
+                    </div>
+                    
+                    <div class="card-badges">
+                        <?php if ($is_baru): ?>
+                            <span class="badge-custom badge-new">
+                                <i class="fas fa-sparkles me-1"></i>BARU
                             </span>
-                            <span class="bubble-time">
-                                <?= date('H:i', strtotime($info['tanggal'])) ?>
-                                <i class="fas fa-check-double" style="color: #53BDEB;"></i>
-                            </span>
+                        <?php endif; ?>
+                        <span class="badge-custom <?= $badge_class ?>">
+                            <i class="fas <?= $info['ditujukan'] == 'umum' ? 'fa-users' : 'fa-user-graduate' ?> me-1"></i>
+                            <?= $badge_text ?>
+                        </span>
+                    </div>
+                    
+                    <div class="card-content">
+                        <?= nl2br(htmlspecialchars($info['isi'])) ?>
+                    </div>
+                    
+                    <div class="card-footer-row">
+                        <div class="card-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <?= date('d M Y', strtotime($info['tanggal'])) ?>
+                        </div>
+                        <div class="card-time">
+                            <i class="fas fa-clock me-1"></i>
+                            <?= date('H:i', strtotime($info['tanggal'])) ?>
                         </div>
                     </div>
                 </div>
@@ -414,41 +532,41 @@ foreach ($informasi_list as $info) {
             <?php endif; ?>
             
         <?php else: ?>
-            <!-- Empty State -->
             <div class="empty-state">
                 <i class="fas fa-bell-slash"></i>
                 <h5>Belum Ada Informasi</h5>
-                <p>Saat ini belum ada informasi atau pengumuman yang tersedia.</p>
-                <small style="display: block; margin-top: 8px;">Informasi baru akan muncul di sini ketika ada pengumuman penting</small>
+                <p>Saat ini belum ada informasi atau pengumuman yang tersedia.<br>
+                Informasi baru akan muncul di sini ketika ada pengumuman penting.</p>
             </div>
         <?php endif; ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Auto scroll to bottom (latest messages)
+        // Smooth scroll and animations
         document.addEventListener('DOMContentLoaded', function() {
-            const container = document.querySelector('.chat-container');
-            if (container) {
-                container.scrollTop = container.scrollHeight;
-            }
-            
-            // Smooth scroll to new messages
-            const newMessages = document.querySelectorAll('.new-message');
-            if (newMessages.length > 0) {
-                setTimeout(() => {
-                    newMessages[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
-            }
-        });
+            // Animate cards on load
+            const cards = document.querySelectorAll('.info-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
 
-        // Click animation
-        document.querySelectorAll('.message-bubble').forEach(bubble => {
-            bubble.addEventListener('click', function() {
-                this.style.transform = 'scale(0.98)';
+            // Scroll to new messages
+            const newCards = document.querySelectorAll('.info-card.new');
+            if (newCards.length > 0) {
                 setTimeout(() => {
-                    this.style.transform = '';
-                }, 150);
+                    newCards[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 500);
+            }
+
+            // Card click animation
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
             });
         });
     </script>
