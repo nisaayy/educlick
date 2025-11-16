@@ -55,518 +55,330 @@ foreach ($informasi_list as $info) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informasi - SDIT</title>
+    <title>Notifikasi - SDIT</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body {
+            background: linear-gradient(135deg, #d9ebd0 0%, #c1dec8 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            min-height: 100vh;
+        .navbar {
+            background: linear-gradient(135deg, #f68c2e 0%, #ff9d4d 100%);
+            box-shadow: 0 4px 12px rgba(246, 140, 46, 0.3);
         }
-
-        /* Top Header */
-        .top-header {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            color: white;
+        
+        .info-section {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
-        .top-header .header-content {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .back-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateX(-5px);
-        }
-
-        .header-info h4 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        .header-info p {
-            margin: 0;
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .header-stats {
-            display: flex;
-            gap: 20px;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 24px;
-            font-weight: 700;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 11px;
-            opacity: 0.8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Filter Pills */
-        .filter-container {
-            max-width: 800px;
-            margin: -20px auto 0;
-            padding: 0 20px 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .filter-pills {
+        
+        .filter-buttons {
             display: flex;
             gap: 10px;
-            overflow-x: auto;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.95);
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid #dee2e6;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .filter-pills::-webkit-scrollbar {
-            display: none;
-        }
-
-        .filter-pill {
-            padding: 10px 20px;
-            border-radius: 25px;
-            background: #f5f5f5;
-            color: #666;
+            background: white;
+            color: #6c757d;
             text-decoration: none;
             font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .filter-pill:hover {
-            background: #e0e0e0;
-            color: #333;
-        }
-
-        .filter-pill.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Main Content */
-        .content-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px 40px;
-        }
-
-        /* Info Card */
-        .info-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .info-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .info-card.new::before {
-            width: 8px;
-            background: linear-gradient(180deg, #f093fb 0%, #f5576c 100%);
-            animation: pulse-width 2s infinite;
-        }
-
-        @keyframes pulse-width {
-            0%, 100% { width: 8px; opacity: 1; }
-            50% { width: 12px; opacity: 0.8; }
-        }
-
-        .info-card.new {
-            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
-        }
-
-        .card-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 12px;
-        }
-
-        .card-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin: 0;
-            flex: 1;
-        }
-
-        .card-badges {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .badge-custom {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-new {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, #f68c2e 0%, #ff9d4d 100%);
             color: white;
-            animation: badge-pulse 2s infinite;
+            border-color: #f68c2e;
         }
-
-        @keyframes badge-pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        
+        .notification-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            border-left: 4px solid transparent;
+            background: white;
         }
-
-        .badge-umum {
-            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-            color: #006644;
+        
+        .notification-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
-
-        .badge-siswa {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            color: #0066cc;
+        
+        .notification-new {
+            border-left: 4px solid #f68c2e;
+            background: #fff8f0;
+            animation: pulse 2s infinite;
         }
-
-        .card-content {
-            color: #555;
-            font-size: 15px;
-            line-height: 1.7;
-            margin: 15px 0;
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(246, 140, 46, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(246, 140, 46, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(246, 140, 46, 0); }
         }
-
-        .card-footer-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 12px;
-            border-top: 1px solid #f0f0f0;
+        
+        .notification-badge {
+            background: linear-gradient(135deg, #f68c2e 0%, #ff9d4d 100%);
         }
-
-        .card-date {
-            font-size: 13px;
-            color: #999;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        
+        .badge-umum { 
+            background: #4d6651;
+            color: white;
         }
-
-        .card-time {
-            font-size: 13px;
-            color: #999;
-            font-weight: 500;
+        
+        .badge-siswa { 
+            background: #2196F3;
+            color: white;
         }
-
-        /* Date Separator */
-        .date-separator {
-            text-align: center;
-            margin: 30px 0 20px;
-            position: relative;
+        
+        .notification-time {
+            font-size: 0.85rem;
+            color: #6c757d;
         }
-
-        .date-separator::before,
-        .date-separator::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 45%;
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3));
-        }
-
-        .date-separator::before {
-            left: 0;
-        }
-
-        .date-separator::after {
-            right: 0;
-            background: linear-gradient(to left, transparent, rgba(255,255,255,0.3));
-        }
-
-        .date-separator span {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #667eea;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Empty State */
+        
         .empty-state {
             text-align: center;
-            padding: 80px 20px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 60px 20px;
+            color: #6b8e70;
         }
-
+        
         .empty-state i {
-            font-size: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 64px;
             margin-bottom: 20px;
             opacity: 0.5;
+            color: #6b8e70;
         }
-
-        .empty-state h5 {
-            font-size: 22px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .empty-state p {
-            color: #666;
-            font-size: 15px;
-        }
-
-        /* Smooth Animations */
-        .info-card {
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-stats {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .top-header {
-                padding: 15px;
-            }
-
-            .filter-container {
-                margin-top: -15px;
-            }
+        
+        .card-header {
+            background: linear-gradient(135deg, #4d6651 0%, #5a7a5e 100%);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <!-- Top Header -->
-    <div class="top-header">
-        <div class="header-content">
-            <a href="dashboard_siswa.php" class="back-btn">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-            
-            <div class="header-info">
-                <h4><i class="fas fa-bell me-2"></i>Informasi</h4>
-                <p><?= htmlspecialchars($siswa_nama) ?> • <?= htmlspecialchars($nama_kelas) ?></p>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <span class="navbar-brand">
+                <i class="fas fa-bell me-2"></i>Notifikasi & Informasi
+            </span>
+            <div class="d-flex">
+                <span class="navbar-text me-3">
+                    <i class="fas fa-user-graduate me-1"></i><?= htmlspecialchars($siswa_nama) ?>
+                </span>
+                <a href="dashboard_siswa.php" class="btn btn-light btn-sm">
+                    <i class="fas fa-arrow-left me-1"></i>Kembali
+                </a>
             </div>
+        </div>
+    </nav>
 
-            <div class="header-stats">
-                <div class="stat-item">
-                    <span class="stat-number"><?= count($informasi_list) ?></span>
-                    <span class="stat-label">Total</span>
+    <div class="container mt-4">
+        <!-- Header Info -->
+        <div class="info-section">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h5 class="mb-1"><i class="fas fa-info-circle me-2"></i>Informasi Sistem</h5>
+                    <p class="mb-0 text-muted">Semua informasi dan pengumuman penting akan muncul di sini</p>
                 </div>
-                <?php if ($informasi_baru > 0): ?>
-                <div class="stat-item">
-                    <span class="stat-number"><?= $informasi_baru ?></span>
-                    <span class="stat-label">Baru</span>
+                <div class="col-md-4 text-end">
+                    <div class="d-flex justify-content-end gap-3">
+                        <div class="text-center">
+                            <div class="fw-bold text-primary"><?= count($informasi_list) ?></div>
+                            <small class="text-muted">Total Info</small>
+                        </div>
+                        <?php if ($informasi_baru > 0): ?>
+                        <div class="text-center">
+                            <div class="fw-bold text-success"><?= $informasi_baru ?></div>
+                            <small class="text-muted">Info Baru</small>
+                        </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <a href="notifikasi.php" class="filter-btn <?= !isset($_GET['filter']) ? 'active' : '' ?>">
+                Semua
+            </a>
+            <a href="notifikasi.php?filter=baru" class="filter-btn <?= isset($_GET['filter']) && $_GET['filter'] == 'baru' ? 'active' : '' ?>">
+                <i class="fas fa-star me-1"></i>Baru
+            </a>
+            <a href="notifikasi.php?filter=umum" class="filter-btn <?= isset($_GET['filter']) && $_GET['filter'] == 'umum' ? 'active' : '' ?>">
+                <i class="fas fa-users me-1"></i>Umum
+            </a>
+            <a href="notifikasi.php?filter=siswa" class="filter-btn <?= isset($_GET['filter']) && $_GET['filter'] == 'siswa' ? 'active' : '' ?>">
+                <i class="fas fa-user-graduate me-1"></i>Siswa
+            </a>
+        </div>
+
+        <!-- Daftar Notifikasi -->
+        <div class="row">
+            <div class="col-12">
+                <?php if (count($informasi_list) > 0): ?>
+                    <?php 
+                    $filter = $_GET['filter'] ?? '';
+                    $visible_count = 0;
+                    
+                    foreach ($informasi_list as $info): 
+                        $is_baru = (strtotime($info['tanggal']) > (time() - 7*24*60*60));
+                        $badge_class = $info['ditujukan'] == 'umum' ? 'badge-umum' : 'badge-siswa';
+                        $icon = $info['ditujukan'] == 'umum' ? 'fas fa-users' : 'fas fa-user-graduate';
+                        
+                        // Apply filter
+                        if ($filter === 'baru' && !$is_baru) continue;
+                        if ($filter === 'umum' && $info['ditujukan'] !== 'umum') continue;
+                        if ($filter === 'siswa' && $info['ditujukan'] !== 'siswa') continue;
+                        
+                        $visible_count++;
+                    ?>
+                        <div class="card notification-card <?= $is_baru ? 'notification-new' : '' ?>">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div class="d-flex align-items-center flex-wrap">
+                                        <h5 class="card-title mb-0 me-2"><?= htmlspecialchars($info['judul']) ?></h5>
+                                        <?php if ($is_baru): ?>
+                                            <span class="badge bg-danger me-2">
+                                                <i class="fas fa-circle me-1"></i>BARU
+                                            </span>
+                                        <?php endif; ?>
+                                        <span class="badge <?= $badge_class ?> me-2">
+                                            <i class="<?= $icon ?> me-1"></i>
+                                            <?= $info['ditujukan'] == 'umum' ? 'Untuk Semua' : 'Khusus Siswa' ?>
+                                        </span>
+                                        <span class="badge bg-light text-dark">
+                                            <i class="fas fa-calendar me-1"></i>
+                                            <?= date('d M Y', strtotime($info['tanggal'])) ?>
+                                        </span>
+                                    </div>
+                                    <small class="notification-time">
+                                        <i class="fas fa-clock me-1"></i>
+                                        <?= date('H:i', strtotime($info['tanggal'])) ?>
+                                    </small>
+                                </div>
+                                
+                                <p class="card-text"><?= nl2br(htmlspecialchars($info['isi'])) ?></p>
+                                
+                                <div class="mt-3 d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar-alt me-1"></i>
+                                        Diterbitkan: <?= date('l, d F Y', strtotime($info['tanggal'])) ?>
+                                    </small>
+                                    <?php if ($is_baru): ?>
+                                        <span class="badge bg-warning text-dark">
+                                            <i class="fas fa-exclamation-circle me-1"></i>Baru
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    
+                    <?php if ($visible_count === 0): ?>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="empty-state">
+                                    <i class="fas fa-search"></i>
+                                    <h3>Tidak Ditemukan</h3>
+                                    <p class="mb-0">Tidak ada informasi yang sesuai dengan filter yang dipilih.</p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    
+                <?php else: ?>
+                    <!-- Empty State -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="empty-state">
+                                <i class="fas fa-bell-slash"></i>
+                                <h3>Belum Ada Informasi</h3>
+                                <p class="mb-0">Saat ini belum ada informasi atau pengumuman yang tersedia.</p>
+                                <small class="text-muted">Informasi baru akan muncul di sini ketika ada pengumuman penting</small>
+                            </div>
+                        </div>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
-    </div>
 
-    <!-- Filter Pills -->
-    <div class="filter-container">
-        <div class="filter-pills">
-            <a href="notifikasi.php" class="filter-pill <?= !isset($_GET['filter']) ? 'active' : '' ?>">
-                <i class="fas fa-th-large me-1"></i> Semua
-            </a>
-            <a href="notifikasi.php?filter=baru" class="filter-pill <?= isset($_GET['filter']) && $_GET['filter'] == 'baru' ? 'active' : '' ?>">
-                <i class="fas fa-star me-1"></i> Baru
-            </a>
-            <a href="notifikasi.php?filter=umum" class="filter-pill <?= isset($_GET['filter']) && $_GET['filter'] == 'umum' ? 'active' : '' ?>">
-                <i class="fas fa-users me-1"></i> Umum
-            </a>
-            <a href="notifikasi.php?filter=siswa" class="filter-pill <?= isset($_GET['filter']) && $_GET['filter'] == 'siswa' ? 'active' : '' ?>">
-                <i class="fas fa-user-graduate me-1"></i> Siswa
-            </a>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="content-container">
-        <?php if (count($informasi_list) > 0): ?>
-            <?php 
-            $filter = $_GET['filter'] ?? '';
-            $current_date = '';
-            $visible_count = 0;
-            
-            foreach ($informasi_list as $info): 
-                $is_baru = (strtotime($info['tanggal']) > (time() - 7*24*60*60));
-                $badge_class = $info['ditujukan'] == 'umum' ? 'badge-umum' : 'badge-siswa';
-                $badge_text = $info['ditujukan'] == 'umum' ? 'Untuk Semua' : 'Khusus Siswa';
-                
-                // Apply filter
-                if ($filter === 'baru' && !$is_baru) continue;
-                if ($filter === 'umum' && $info['ditujukan'] !== 'umum') continue;
-                if ($filter === 'siswa' && $info['ditujukan'] !== 'siswa') continue;
-                
-                $visible_count++;
-                
-                // Date separator
-                $message_date = date('d F Y', strtotime($info['tanggal']));
-                if ($current_date !== $message_date) {
-                    $current_date = $message_date;
-                    if ($visible_count > 1) {
-                        echo '<div class="date-separator"><span>' . $message_date . '</span></div>';
-                    }
-                }
-            ?>
-                <div class="info-card <?= $is_baru ? 'new' : '' ?>">
-                    <div class="card-header-row">
-                        <h5 class="card-title"><?= htmlspecialchars($info['judul']) ?></h5>
-                    </div>
-                    
-                    <div class="card-badges">
-                        <?php if ($is_baru): ?>
-                            <span class="badge-custom badge-new">
-                                <i class="fas fa-sparkles me-1"></i>BARU
-                            </span>
-                        <?php endif; ?>
-                        <span class="badge-custom <?= $badge_class ?>">
-                            <i class="fas <?= $info['ditujukan'] == 'umum' ? 'fa-users' : 'fa-user-graduate' ?> me-1"></i>
-                            <?= $badge_text ?>
-                        </span>
-                    </div>
-                    
-                    <div class="card-content">
-                        <?= nl2br(htmlspecialchars($info['isi'])) ?>
-                    </div>
-                    
-                    <div class="card-footer-row">
-                        <div class="card-date">
-                            <i class="fas fa-calendar-alt"></i>
-                            <?= date('d M Y', strtotime($info['tanggal'])) ?>
-                        </div>
-                        <div class="card-time">
-                            <i class="fas fa-clock me-1"></i>
-                            <?= date('H:i', strtotime($info['tanggal'])) ?>
-                        </div>
+        <!-- Footer Info -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card bg-light">
+                    <div class="card-body text-center py-3">
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Informasi terbaru akan ditandai dengan warna biru. Total <?= count($informasi_list) ?> informasi tersedia.
+                            <?php if ($informasi_baru > 0): ?>
+                                <span class="text-success">
+                                    <i class="fas fa-star me-1"></i><?= $informasi_baru ?> informasi baru dalam 7 hari terakhir.
+                                </span>
+                            <?php endif; ?>
+                        </small>
                     </div>
                 </div>
-            <?php endforeach; ?>
-            
-            <?php if ($visible_count === 0): ?>
-                <div class="empty-state">
-                    <i class="fas fa-search"></i>
-                    <h5>Tidak Ditemukan</h5>
-                    <p>Tidak ada informasi yang sesuai dengan filter yang dipilih.</p>
-                </div>
-            <?php endif; ?>
-            
-        <?php else: ?>
-            <div class="empty-state">
-                <i class="fas fa-bell-slash"></i>
-                <h5>Belum Ada Informasi</h5>
-                <p>Saat ini belum ada informasi atau pengumuman yang tersedia.<br>
-                Informasi baru akan muncul di sini ketika ada pengumuman penting.</p>
             </div>
-        <?php endif; ?>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Smooth scroll and animations
+        // Auto scroll to new notifications
         document.addEventListener('DOMContentLoaded', function() {
-            // Animate cards on load
-            const cards = document.querySelectorAll('.info-card');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-            });
-
-            // Scroll to new messages
-            const newCards = document.querySelectorAll('.info-card.new');
-            if (newCards.length > 0) {
-                setTimeout(() => {
-                    newCards[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 500);
-            }
-
-            // Card click animation
-            cards.forEach(card => {
-                card.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.98)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
+            const newNotifications = document.querySelectorAll('.notification-new');
+            if (newNotifications.length > 0) {
+                newNotifications[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Add click event to mark as read (visual only)
+                newNotifications.forEach(notification => {
+                    notification.addEventListener('click', function() {
+                        this.classList.remove('notification-new');
+                        this.style.borderLeftColor = '#6c757d';
+                    });
                 });
+            }
+            
+            // Update active filter button
+            const urlParams = new URLSearchParams(window.location.search);
+            const filter = urlParams.get('filter');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                const btnFilter = btn.getAttribute('href').includes('filter=') 
+                    ? btn.getAttribute('href').split('filter=')[1]
+                    : '';
+                if ((!filter && btn.getAttribute('href') === 'notifikasi.php') || 
+                    (filter && btnFilter === filter)) {
+                    btn.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth animation for notification cards
+        document.querySelectorAll('.notification-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
             });
         });
     </script>
