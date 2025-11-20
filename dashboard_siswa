@@ -825,3 +825,69 @@ body{
             </div>
           <?php endforeach; ?>
         <?php
+          <?php endforeach; ?>
+        <?php else: ?>
+          <div class="no-data">
+            <i class="fas fa-info-circle"></i>
+            <p>Tidak ada informasi terbaru</p>
+          </div>
+        <?php endif; ?>
+      </div>
+    </div>
+
+    <!-- Footer / Quick Links -->
+    <div style="margin-top:20px; text-align:center; color:var(--text-light); font-size:13px;">
+      <p>© <?= date('Y') ?> SDIT — Sistem Informasi Siswa</p>
+      <p>
+        <a href="../logout.php" style="color:var(--orange); text-decoration:none; font-weight:600;">Logout</a>
+      </p>
+    </div>
+
+  </div> <!-- end .main-content -->
+</div> <!-- end .container -->
+
+<script>
+  // Toggle untuk bagian informasi
+  function toggleInformasi() {
+    const list = document.getElementById('informasiList');
+    const toggleBtn = document.querySelector('.info-toggle i');
+    if (!list) return;
+
+    list.classList.toggle('show');
+    // Putar icon
+    if (list.classList.contains('show')) {
+      toggleBtn.classList.remove('fa-chevron-down');
+      toggleBtn.classList.add('fa-chevron-up');
+    } else {
+      toggleBtn.classList.remove('fa-chevron-up');
+      toggleBtn.classList.add('fa-chevron-down');
+    }
+  }
+
+  // Pastikan progress bar sesuai (fallback jika inline style belum diaplikasikan)
+  document.addEventListener('DOMContentLoaded', function() {
+    const fill = document.querySelector('.progress-fill');
+    if (fill) {
+      const pctText = <?= json_encode($persentase_hadir) ?>;
+      // jaga agar antara 0-100
+      let pct = Number(pctText);
+      if (isNaN(pct) || pct < 0) pct = 0;
+      if (pct > 100) pct = 100;
+      fill.style.width = pct + '%';
+    }
+
+    // Jika ingin auto-expand informasi bila ada urgent info, uncomment:
+    // const infoList = document.getElementById('informasiList');
+    // if (infoList && infoList.children.length > 0) infoList.classList.add('show');
+  });
+
+  // Optional: tangani error loading gambar profil (double-guard)
+  document.querySelectorAll('.header-avatar img').forEach(img => {
+    img.addEventListener('error', function() {
+      this.src = 'data:image/svg+xml;base64,<?= base64_encode('<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#2196F3"/><text x="50" y="55" font-family="Arial" font-size="40" fill="white" text-anchor="middle" dominant-baseline="middle">'. strtoupper(substr($siswa_nama,0,1)) .'</text></svg>') ?>';
+    });
+  });
+</script>
+
+</body>
+</html>
