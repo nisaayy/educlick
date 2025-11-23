@@ -104,8 +104,9 @@ $stmt->close();
   --orange-dark: #f68c2e;
   --green: #7FB069;
   --green-dark: #4d6651;
+  --green-light: #A8D08D;
   --red: #FF6B6B;
-  --bg: #F5F5F5;
+  --bg: #E8F4F0;
   --white: #FFFFFF;
   --text-dark: #2D3748;
   --text-light: #718096;
@@ -125,20 +126,20 @@ body{
 /* Header dengan foto profil */
 .header{
   background:linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);
-  padding:24px 20px;
+  padding:20px;
   color:var(--white);
-  box-shadow:var(--shadow-lg);
+  border-radius:0 0 24px 24px;
 }
 .header-content{
   max-width:1200px;
   margin:0 auto;
   display:flex;
   align-items:center;
-  gap:16px;
+  gap:12px;
 }
 .header-avatar{
-  width:60px;
-  height:60px;
+  width:48px;
+  height:48px;
   border-radius:50%;
   overflow:hidden;
   background:var(--white);
@@ -147,9 +148,9 @@ body{
   justify-content:center;
   font-weight:700;
   color:var(--orange);
-  font-size:24px;
+  font-size:20px;
   flex-shrink:0;
-  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
 }
 .header-avatar img{
   width:100%;
@@ -157,12 +158,12 @@ body{
   object-fit:cover;
 }
 .header-info h3{
-  font-size:18px;
+  font-size:15px;
   font-weight:600;
-  margin-bottom:4px;
+  margin-bottom:2px;
 }
 .header-info p{
-  font-size:13px;
+  font-size:12px;
   opacity:0.9;
 }
 
@@ -173,44 +174,46 @@ body{
   padding:20px;
 }
 
-/* Stats Cards */
+/* Stats Cards - Gaya Baru dengan Border Radius */
 .stats-section{
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:12px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
   margin-bottom:20px;
 }
 .stat-card{
   background:var(--white);
   border-radius:16px;
-  padding:16px;
+  padding:14px 16px;
   box-shadow:var(--shadow);
   display:flex;
   align-items:center;
   gap:12px;
 }
 .stat-icon{
-  width:48px;
-  height:48px;
-  border-radius:12px;
+  width:36px;
+  height:36px;
+  border-radius:8px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:20px;
+  font-size:18px;
   flex-shrink:0;
+  background:var(--green-dark);
+  color:var(--white);
 }
-.stat-icon.green{background:#E8F5E9;color:var(--green-dark)}
-.stat-icon.orange{background:#FFF3E0;color:var(--orange-dark)}
-.stat-icon.blue{background:#E3F2FD;color:#2196F3}
+.stat-content{
+  flex:1;
+}
 .stat-content h4{
-  font-size:12px;
+  font-size:11px;
   color:var(--text-light);
   font-weight:500;
-  margin-bottom:4px;
+  margin-bottom:2px;
 }
 .stat-content p{
-  font-size:16px;
-  font-weight:700;
+  font-size:14px;
+  font-weight:600;
   color:var(--text-dark);
 }
 
@@ -218,21 +221,21 @@ body{
 .urgent-info{
   background:linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);
   border-radius:16px;
-  padding:20px;
+  padding:16px;
   margin-bottom:20px;
   color:var(--white);
-  box-shadow:var(--shadow-lg);
+  box-shadow:var(--shadow);
 }
 .urgent-info h3{
-  font-size:14px;
+  font-size:12px;
   font-weight:700;
   text-transform:uppercase;
   letter-spacing:0.5px;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 .urgent-info p{
-  font-size:13px;
-  line-height:1.5;
+  font-size:12px;
+  line-height:1.4;
   opacity:0.95;
 }
 
@@ -241,7 +244,7 @@ body{
   margin-bottom:20px;
 }
 .quick-access h3{
-  font-size:16px;
+  font-size:15px;
   font-weight:600;
   margin-bottom:12px;
   color:var(--text-dark);
@@ -249,12 +252,12 @@ body{
 .quick-buttons{
   display:grid;
   grid-template-columns:repeat(3, 1fr);
-  gap:12px;
+  gap:10px;
 }
 .quick-btn{
   background:var(--white);
   border-radius:16px;
-  padding:20px 16px;
+  padding:20px 12px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -263,25 +266,35 @@ body{
   text-decoration:none;
   box-shadow:var(--shadow);
   transition:all 0.3s ease;
+  min-height:100px;
 }
 .quick-btn:hover{
-  transform:translateY(-4px);
+  transform:translateY(-2px);
   box-shadow:var(--shadow-lg);
 }
-.quick-btn.green{color:var(--green-dark)}
-.quick-btn.orange{color:var(--orange-dark)}
-.quick-btn.blue{color:#2196F3}
-.quick-btn i{
-  font-size:32px;
+.quick-btn-icon{
+  width:48px;
+  height:48px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  color:var(--white);
 }
+.quick-btn.green .quick-btn-icon{background:var(--green-light)}
+.quick-btn.orange .quick-btn-icon{background:var(--orange)}
+.quick-btn.blue .quick-btn-icon{background:#6B9BC3}
 .quick-btn span{
-  font-size:13px;
+  font-size:12px;
   font-weight:600;
+  color:var(--text-dark);
+  text-align:center;
 }
 
 /* Informasi Cards */
 .info-section h3{
-  font-size:16px;
+  font-size:15px;
   font-weight:600;
   margin-bottom:12px;
   color:var(--text-dark);
@@ -289,12 +302,12 @@ body{
 .info-list{
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:10px;
 }
 .info-card{
   background:var(--white);
-  border-radius:12px;
-  padding:16px;
+  border-radius:16px;
+  padding:14px;
   box-shadow:var(--shadow);
   text-decoration:none;
   color:inherit;
@@ -312,7 +325,7 @@ body{
   margin-bottom:8px;
 }
 .info-title{
-  font-size:14px;
+  font-size:13px;
   font-weight:600;
   color:var(--text-dark);
   flex:1;
@@ -320,14 +333,14 @@ body{
 .info-badge{
   background:var(--green-dark);
   color:var(--white);
-  padding:4px 8px;
+  padding:3px 8px;
   border-radius:6px;
   font-size:10px;
   font-weight:600;
   text-transform:uppercase;
 }
 .info-text{
-  font-size:13px;
+  font-size:12px;
   color:var(--text-light);
   line-height:1.4;
   margin-bottom:8px;
@@ -337,7 +350,7 @@ body{
   overflow:hidden;
 }
 .info-meta{
-  font-size:11px;
+  font-size:10px;
   color:var(--text-light);
   display:flex;
   align-items:center;
@@ -351,13 +364,13 @@ body{
   color:var(--orange-dark);
   text-decoration:none;
   font-weight:600;
-  font-size:13px;
+  font-size:12px;
 }
 
 /* Empty state */
 .empty-state{
   background:var(--white);
-  border-radius:12px;
+  border-radius:16px;
   padding:32px;
   text-align:center;
   box-shadow:var(--shadow);
@@ -369,7 +382,7 @@ body{
 }
 .empty-state p{
   color:var(--text-light);
-  font-size:14px;
+  font-size:13px;
 }
 
 /* Floating Logout */
@@ -400,17 +413,8 @@ body{
 
 /* Responsive */
 @media (max-width: 768px){
-  .stats-section{
-    grid-template-columns:1fr;
-  }
   .quick-buttons{
-    grid-template-columns:repeat(2, 1fr);
-  }
-  .header-info h3{
-    font-size:16px;
-  }
-  .stat-content p{
-    font-size:14px;
+    grid-template-columns:repeat(3, 1fr);
   }
 }
 
@@ -419,23 +423,34 @@ body{
     padding:16px;
   }
   .header{
-    padding:20px 16px;
+    padding:16px;
+    border-radius:0 0 20px 20px;
   }
   .header-avatar{
-    width:50px;
-    height:50px;
-    font-size:20px;
+    width:44px;
+    height:44px;
+    font-size:18px;
+  }
+  .header-info h3{
+    font-size:14px;
+  }
+  .header-info p{
+    font-size:11px;
   }
   .quick-buttons{
-    grid-template-columns:1fr;
+    gap:8px;
   }
   .quick-btn{
-    flex-direction:row;
-    justify-content:flex-start;
-    padding:16px;
+    padding:16px 10px;
+    min-height:90px;
   }
-  .quick-btn i{
-    font-size:24px;
+  .quick-btn-icon{
+    width:40px;
+    height:40px;
+    font-size:20px;
+  }
+  .quick-btn span{
+    font-size:11px;
   }
 }
 </style>
@@ -443,29 +458,16 @@ body{
 <body>
 
 <!-- Header -->
-<?php
-$stmt = $conn->prepare("SELECT foto_profil FROM guru_foto_profil WHERE guru_id = ? ORDER BY created_at DESC LIMIT 1");
-$stmt->bind_param("i", $guru_id);
-$stmt->execute();
-$foto_result = $stmt->get_result();
-$foto_data = $foto_result->fetch_assoc();
-$foto_profil = $foto_data['foto_profil'] ?? null;
-$stmt->close();
-?>
 <div class="header">
   <div class="header-content">
     <a href="profil.php" style="text-decoration:none;">
       <div class="header-avatar">
-        <?php if ($foto_profil): ?>
-          <img src="../uploads/profil/<?= htmlspecialchars($foto_profil) ?>?t=<?= time() ?>" alt="Foto profil">
-        <?php else: ?>
-          <?= strtoupper(htmlspecialchars(substr($guru_nama,0,1))) ?>
-        <?php endif; ?>
+        <i class="fas fa-user"></i>
       </div>
     </a>
     <div class="header-info">
-      <h3><?= htmlspecialchars($guru_nama) ?></h3>
-      <p><?= ucfirst($_SESSION['role']) ?> • <?= $hari_ini ?>, <?= date('d M Y') ?></p>
+      <h3>Fazlur Riofauzan</h3>
+      <p>Guru Mapel • Senin, 24 Nov 2025</p>
     </div>
   </div>
 </div>
@@ -476,40 +478,38 @@ $stmt->close();
   <!-- Stats Cards -->
   <div class="stats-section">
     <div class="stat-card">
-      <div class="stat-icon green">
+      <div class="stat-icon">
         <i class="fas fa-user-check"></i>
       </div>
       <div class="stat-content">
         <h4>Hadir Hari Ini</h4>
-        <p><?= htmlspecialchars($hadir_hari_ini) ?></p>
+        <p>27/30 Siswa</p>
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon orange">
+      <div class="stat-icon">
         <i class="fas fa-calendar-alt"></i>
       </div>
       <div class="stat-content">
         <h4>Jadwal Berikutnya</h4>
-        <p><?= htmlspecialchars($jadwal_berikutnya_text) ?></p>
+        <p>Sejarah</p>
       </div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon blue">
+      <div class="stat-icon">
         <i class="fas fa-door-open"></i>
       </div>
       <div class="stat-content">
         <h4>Total Kelas Diampu</h4>
-        <p><?= htmlspecialchars($total_kelas) ?> Kelas</p>
+        <p>5 Kelas</p>
       </div>
     </div>
   </div>
 
   <!-- Urgent Info -->
   <div class="urgent-info">
-    <h3>STATUS ABSENSI</h3>
-    <p><?= $status_absensi == 'open' 
-      ? 'Absensi terbuka - Guru dapat menginput absensi hari ini' 
-      : 'Absensi ditutup - Periode absensi telah berakhir' ?></p>
+    <h3>URGENT INFO</h3>
+    <p>Rapat guru pukul 13.30 harap bersiap</p>
   </div>
 
   <!-- Quick Access -->
@@ -517,15 +517,21 @@ $stmt->close();
     <h3>Quick Access</h3>
     <div class="quick-buttons">
       <a href="jadwal.php" class="quick-btn green">
-        <i class="fas fa-calendar-alt"></i>
+        <div class="quick-btn-icon">
+          <i class="fas fa-gift"></i>
+        </div>
         <span>Jadwal</span>
       </a>
       <a href="notifikasi.php" class="quick-btn orange">
-        <i class="fas fa-bell"></i>
+        <div class="quick-btn-icon">
+          <i class="fas fa-id-card"></i>
+        </div>
         <span>Notifikasi</span>
       </a>
       <a href="absensi.php" class="quick-btn blue">
-        <i class="fas fa-user-check"></i>
+        <div class="quick-btn-icon">
+          <i class="fas fa-gift"></i>
+        </div>
         <span>Absensi</span>
       </a>
     </div>
@@ -533,36 +539,11 @@ $stmt->close();
 
   <!-- Informasi Section -->
   <div class="info-section">
-    <h3>Informasi Terbaru</h3>
-    <?php if (count($informasi_list) > 0): ?>
-      <div class="info-list">
-        <?php foreach ($informasi_list as $info): ?>
-          <?php
-            $info_id = isset($info['id']) ? urlencode($info['id']) : '';
-            $href = $info_id !== '' ? "informasi.php?id={$info_id}" : "informasi.php";
-          ?>
-          <a class="info-card" href="<?= $href ?>">
-            <div class="info-header">
-              <div class="info-title"><?= htmlspecialchars($info['judul']) ?></div>
-              <span class="info-badge"><?= strtoupper(htmlspecialchars($info['ditujukan'])) ?></span>
-            </div>
-            <div class="info-text"><?= nl2br(htmlspecialchars($info['isi'])) ?></div>
-            <div class="info-meta">
-              <i class="fas fa-clock"></i>
-              <span><?= date('d/m/Y H:i', strtotime($info['tanggal'])) ?></span>
-            </div>
-          </a>
-        <?php endforeach; ?>
-      </div>
-      <div class="info-footer">
-        <a href="informasi.php">Lihat Semua &raquo;</a>
-      </div>
-    <?php else: ?>
-      <div class="empty-state">
-        <i class="fas fa-bell-slash"></i>
-        <p>Tidak ada informasi baru</p>
-      </div>
-    <?php endif; ?>
+    <h3>Presentase Kehadiran Bulan Oktober</h3>
+    <div class="empty-state">
+      <i class="fas fa-chart-bar"></i>
+      <p>Grafik kehadiran akan ditampilkan di sini</p>
+    </div>
   </div>
 
 </div>
