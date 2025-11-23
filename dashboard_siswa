@@ -333,7 +333,7 @@ body{
   font-weight:600;
 }
 
-/* Progress Kehadiran */
+/* Progress Kehadiran dengan Chart */
 .progress-container{
   background:var(--white);
   border-radius:16px;
@@ -342,38 +342,93 @@ body{
   margin-bottom:20px;
 }
 .progress-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:16px;
+  margin-bottom:20px;
+  text-align:center;
 }
 .progress-header h4{
   font-size:15px;
   color:var(--text-dark);
   font-weight:600;
-  display:flex;
+  display:inline-flex;
   align-items:center;
   gap:8px;
 }
-.progress-percentage{
-  font-size:24px;
-  font-weight:700;
-  color:var(--orange);
+
+/* Chart Styles */
+.chart-container{
+  background:#D5E8D4;
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:20px;
 }
-.progress-bar{
+.chart-wrapper{
+  display:flex;
+  gap:15px;
+  min-height:300px;
+}
+.chart-y-axis{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding-right:10px;
+  min-width:30px;
+}
+.y-label{
+  font-size:11px;
+  color:var(--text-dark);
+  font-weight:500;
+  text-align:right;
+}
+.chart-bars{
+  flex:1;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-around;
+  gap:20px;
+  padding:0 20px;
+  border-left:2px solid rgba(0,0,0,0.2);
+  border-bottom:2px solid rgba(0,0,0,0.2);
+  position:relative;
+}
+.bar-item{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+}
+.bar{
   width:100%;
-  height:12px;
-  background:#E0E0E0;
-  border-radius:10px;
-  overflow:hidden;
-  margin-bottom:16px;
+  max-width:60px;
+  background:transparent;
+  border-radius:8px 8px 0 0;
+  position:relative;
+  transition:all 0.5s ease;
 }
-.progress-fill{
+.bar-fill{
+  width:100%;
   height:100%;
-  background:linear-gradient(90deg, var(--green-dark), var(--green));
-  border-radius:10px;
-  transition:width 0.8s ease;
+  background:#B8A3D9;
+  border-radius:8px 8px 0 0;
+  transition:all 0.5s ease;
+  animation:growBar 1s ease-out;
 }
+@keyframes growBar{
+  from{height:0}
+  to{height:100%}
+}
+.bar:hover .bar-fill{
+  background:#9B7FCC;
+  transform:scaleY(1.02);
+}
+.bar-label{
+  font-size:11px;
+  color:var(--text-dark);
+  font-weight:500;
+  text-align:center;
+  white-space:nowrap;
+}
+
 .progress-stats{
   display:grid;
   grid-template-columns:repeat(4, 1fr);
@@ -601,6 +656,19 @@ body{
   .progress-stats{
     grid-template-columns:repeat(2, 1fr);
   }
+  .chart-wrapper{
+    min-height:250px;
+  }
+  .chart-bars{
+    gap:10px;
+    padding:0 10px;
+  }
+  .bar{
+    max-width:50px;
+  }
+  .bar-label{
+    font-size:10px;
+  }
 }
 
 @media (max-width: 480px){
@@ -715,15 +783,61 @@ body{
       </div>
     </div>
 
-    <!-- Progress Kehadiran -->
+    <!-- Progress Kehadiran dengan Grafik Batang -->
     <div class="progress-container">
       <div class="progress-header">
-        <h4><i class="fas fa-chart-line"></i> Kehadiran Bulan Ini</h4>
-        <div class="progress-percentage"><?= $persentase_hadir ?>%</div>
+        <h4><i class="fas fa-chart-line"></i> Presentase Kehadiran Bulan Oktober</h4>
       </div>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: <?= $persentase_hadir ?>%"></div>
+      
+      <!-- Chart Container -->
+      <div class="chart-container">
+        <div class="chart-wrapper">
+          <!-- Y-axis labels -->
+          <div class="chart-y-axis">
+            <div class="y-label">100</div>
+            <div class="y-label">90</div>
+            <div class="y-label">80</div>
+            <div class="y-label">70</div>
+            <div class="y-label">60</div>
+            <div class="y-label">50</div>
+            <div class="y-label">40</div>
+            <div class="y-label">30</div>
+            <div class="y-label">20</div>
+            <div class="y-label">10</div>
+            <div class="y-label">0</div>
+          </div>
+          
+          <!-- Chart bars -->
+          <div class="chart-bars">
+            <div class="bar-item">
+              <div class="bar" style="height: 85%">
+                <div class="bar-fill"></div>
+              </div>
+              <div class="bar-label">Minggu ke-1</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 95%">
+                <div class="bar-fill"></div>
+              </div>
+              <div class="bar-label">Minggu ke-2</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 60%">
+                <div class="bar-fill"></div>
+              </div>
+              <div class="bar-label">Minggu ke-3</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 90%">
+                <div class="bar-fill"></div>
+              </div>
+              <div class="bar-label">Minggu ke-4</div>
+            </div>
+          </div>
+        </div>
       </div>
+      
+      <!-- Stats Summary -->
       <div class="progress-stats">
         <div class="progress-stat">
           <div class="number stat-hadir"><?= $hadir_bulan ?></div>
