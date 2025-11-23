@@ -177,14 +177,14 @@ if (isset($_GET['confirm']) && $_GET['confirm'] == 'true') {
             .logout-header {
                 background: transparent;
                 color: white;
-                padding: 3rem 2rem 2rem;
+                padding: 2rem;
                 text-align: center;
                 position: relative;
                 z-index: 1;
             }
             
             .logout-icon {
-                font-size: 5rem;
+                font-size: 4rem;
                 margin-bottom: 1rem;
                 opacity: 0.95;
                 display: inline-block;
@@ -197,7 +197,7 @@ if (isset($_GET['confirm']) && $_GET['confirm'] == 'true') {
             }
             
             .logout-body {
-                padding: 2.5rem;
+                padding: 2rem;
                 text-align: center;
                 background: var(--white);
                 border-radius: 24px 24px 0 0;
@@ -209,26 +209,26 @@ if (isset($_GET['confirm']) && $_GET['confirm'] == 'true') {
             .logout-body h4 {
                 color: var(--text-dark);
                 font-weight: 700;
-                margin-bottom: 1rem;
-                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+                font-size: 1.3rem;
             }
 
             .logout-body p {
                 color: var(--text-light);
-                font-size: 1rem;
-                margin-bottom: 2rem;
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
             }
             
             .btn-logout {
                 background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
                 border: none;
                 color: white;
-                padding: 14px 35px;
-                border-radius: 14px;
+                padding: 12px 30px;
+                border-radius: 12px;
                 font-weight: 600;
                 transition: all 0.3s ease;
                 box-shadow: 0 4px 12px rgba(255, 157, 77, 0.3);
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
             
             .btn-logout:hover {
@@ -245,11 +245,11 @@ if (isset($_GET['confirm']) && $_GET['confirm'] == 'true') {
                 background: var(--white);
                 border: 2px solid var(--green);
                 color: var(--green-dark);
-                padding: 14px 35px;
-                border-radius: 14px;
+                padding: 12px 30px;
+                border-radius: 12px;
                 font-weight: 600;
                 transition: all 0.3s ease;
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
             
             .btn-cancel:hover {
