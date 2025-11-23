@@ -458,16 +458,29 @@ body{
 <body>
 
 <!-- Header -->
+<?php
+$stmt = $conn->prepare("SELECT foto_profil FROM guru_foto_profil WHERE guru_id = ? ORDER BY created_at DESC LIMIT 1");
+$stmt->bind_param("i", $guru_id);
+$stmt->execute();
+$foto_result = $stmt->get_result();
+$foto_data = $foto_result->fetch_assoc();
+$foto_profil = $foto_data['foto_profil'] ?? null;
+$stmt->close();
+?>
 <div class="header">
   <div class="header-content">
     <a href="profil.php" style="text-decoration:none;">
       <div class="header-avatar">
-        <i class="fas fa-user"></i>
+        <?php if ($foto_profil): ?>
+          <img src="../uploads/profil/<?= htmlspecialchars($foto_profil) ?>?t=<?= time() ?>" alt="Foto profil">
+        <?php else: ?>
+          <?= strtoupper(htmlspecialchars(substr($guru_nama,0,1))) ?>
+        <?php endif; ?>
       </div>
     </a>
     <div class="header-info">
-      <h3>Fazlur Riofauzan</h3>
-      <p>Guru Mapel • Senin, 24 Nov 2025</p>
+      <h3><?= htmlspecialchars($guru_nama) ?></h3>
+      <p><?= ucfirst($_SESSION['role']) ?> • <?= $hari_ini ?>, <?= date('d M Y') ?></p>
     </div>
   </div>
 </div>
@@ -483,7 +496,7 @@ body{
       </div>
       <div class="stat-content">
         <h4>Hadir Hari Ini</h4>
-        <p>27/30 Siswa</p>
+        <p><?= htmlspecialchars($hadir_hari_ini) ?></p>
       </div>
     </div>
     <div class="stat-card">
@@ -492,7 +505,7 @@ body{
       </div>
       <div class="stat-content">
         <h4>Jadwal Berikutnya</h4>
-        <p>Sejarah</p>
+        <p><?= htmlspecialchars($jadwal_berikutnya_text) ?></p>
       </div>
     </div>
     <div class="stat-card">
@@ -501,15 +514,17 @@ body{
       </div>
       <div class="stat-content">
         <h4>Total Kelas Diampu</h4>
-        <p>5 Kelas</p>
+        <p><?= htmlspecialchars($total_kelas) ?> Kelas</p>
       </div>
     </div>
   </div>
 
   <!-- Urgent Info -->
   <div class="urgent-info">
-    <h3>URGENT INFO</h3>
-    <p>Rapat guru pukul 13.30 harap bersiap</p>
+    <h3>STATUS ABSENSI</h3>
+    <p><?= $status_absensi == 'open' 
+      ? 'Absensi terbuka - Guru dapat menginput absensi hari ini' 
+      : 'Absensi ditutup - Periode absensi telah berakhir' ?></p>
   </div>
 
   <!-- Quick Access -->
@@ -518,19 +533,19 @@ body{
     <div class="quick-buttons">
       <a href="jadwal.php" class="quick-btn green">
         <div class="quick-btn-icon">
-          <i class="fas fa-gift"></i>
+          <i class="fas fa-calendar-alt"></i>
         </div>
         <span>Jadwal</span>
       </a>
       <a href="notifikasi.php" class="quick-btn orange">
         <div class="quick-btn-icon">
-          <i class="fas fa-id-card"></i>
+          <i class="fas fa-bell"></i>
         </div>
         <span>Notifikasi</span>
       </a>
       <a href="absensi.php" class="quick-btn blue">
         <div class="quick-btn-icon">
-          <i class="fas fa-gift"></i>
+          <i class="fas fa-user-check"></i>
         </div>
         <span>Absensi</span>
       </a>
@@ -539,11 +554,36 @@ body{
 
   <!-- Informasi Section -->
   <div class="info-section">
-    <h3>Presentase Kehadiran Bulan Oktober</h3>
-    <div class="empty-state">
-      <i class="fas fa-chart-bar"></i>
-      <p>Grafik kehadiran akan ditampilkan di sini</p>
-    </div>
+    <h3>Informasi Terbaru</h3>
+    <?php if (count($informasi_list) > 0): ?>
+      <div class="info-list">
+        <?php foreach ($informasi_list as $info): ?>
+          <?php
+            $info_id = isset($info['id']) ? urlencode($info['id']) : '';
+            $href = $info_id !== '' ? "informasi.php?id={$info_id}" : "informasi.php";
+          ?>
+          <a class="info-card" href="<?= $href ?>">
+            <div class="info-header">
+              <div class="info-title"><?= htmlspecialchars($info['judul']) ?></div>
+              <span class="info-badge"><?= strtoupper(htmlspecialchars($info['ditujukan'])) ?></span>
+            </div>
+            <div class="info-text"><?= nl2br(htmlspecialchars($info['isi'])) ?></div>
+            <div class="info-meta">
+              <i class="fas fa-clock"></i>
+              <span><?= date('d/m/Y H:i', strtotime($info['tanggal'])) ?></span>
+            </div>
+          </a>
+        <?php endforeach; ?>
+      </div>
+      <div class="info-footer">
+        <a href="informasi.php">Lihat Semua &raquo;</a>
+      </div>
+    <?php else: ?>
+      <div class="empty-state">
+        <i class="fas fa-bell-slash"></i>
+        <p>Tidak ada informasi baru</p>
+      </div>
+    <?php endif; ?>
   </div>
 
 </div>
